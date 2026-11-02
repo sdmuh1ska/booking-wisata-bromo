@@ -1,0 +1,820 @@
+
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <base target="_top">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <title>Booking Wisata Gunung Bromo</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+  <style>
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Poppins', sans-serif;
+      background: #edf1ed;
+      color: #24352d;
+      min-height: 100vh;
+      min-height: 100dvh;
+    }
+
+    button, select {
+      font-family: inherit;
+      touch-action: manipulation;
+    }
+
+    .container {
+      width: 100%;
+      max-width: 480px;
+      margin: auto;
+      min-height: 100vh;
+      min-height: 100dvh;
+      background: white;
+      overflow: hidden;
+      position: relative;
+    }
+
+    /* HALAMAN UTAMA */
+
+    .hero {
+      min-height: 100vh;
+      min-height: 100dvh;
+      position: relative;
+      padding:
+        max(30px, env(safe-area-inset-top))
+        22px
+        max(30px, env(safe-area-inset-bottom));
+
+      color: white;
+
+      background:
+        linear-gradient(
+          180deg,
+          rgba(0,0,0,.10) 0%,
+          rgba(0,0,0,.28) 35%,
+          rgba(0,0,0,.82) 100%
+        ),
+        url('https://drive.google.com/thumbnail?id=1EcEk7zPPZokqGiRbTWoxtcP5Q-5h6M-I&sz=w1600')
+        center center / cover no-repeat;
+    }
+
+    .brand {
+      text-align: center;
+      padding-top: 25px;
+    }
+
+    .brand-icon {
+      font-size: 48px;
+      margin-bottom: 15px;
+    }
+
+    .brand h1 {
+      font-size: 27px;
+      font-weight: 800;
+      line-height: 1.4;
+      letter-spacing: .5px;
+    }
+
+    .brand p {
+      font-size: 12px;
+      margin-top: 12px;
+      opacity: .95;
+    }
+
+    .hero-content {
+      position: absolute;
+      left: 0;
+      right: 0;
+      bottom: max(28px, env(safe-area-inset-bottom));
+      display: flex;
+      justify-content: center;
+      padding: 0 22px;
+      text-align: center;
+    }
+
+    .tagline {
+      font-size: 13px;
+      line-height: 1.8;
+      margin-bottom: 25px;
+    }
+
+    .btn-main {
+      width: 50%;
+      min-width: 150px;
+      max-width: 230px;
+      min-height: 49px;
+      padding: 12px 10px;
+      border: none;
+      border-radius: 12px;
+      background: #16834f;
+      color: white;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 5px 16px rgba(0,0,0,.20);
+    }
+
+    /* HALAMAN BOOKING */
+
+    #bookingPage {
+      display: none;
+      min-height: 100vh;
+      min-height: 100dvh;
+      padding:
+        max(25px, env(safe-area-inset-top))
+        20px
+        max(30px, env(safe-area-inset-bottom));
+    }
+
+    .back-link {
+      border: none;
+      background: none;
+      color: #16834f;
+      font-size: 14px;
+      font-weight: 600;
+      padding: 12px 0;
+      cursor: pointer;
+      margin-bottom: 20px;
+    }
+
+    .header-booking {
+      margin-bottom: 25px;
+    }
+
+    .header-booking h2 {
+      font-size: 25px;
+      font-weight: 800;
+      color: #183b2a;
+    }
+
+    .header-booking p {
+      font-size: 12px;
+      color: #829087;
+      margin-top: 7px;
+      line-height: 1.7;
+    }
+
+    .form-card {
+      background: white;
+      border: 1px solid #e8eee9;
+      border-radius: 17px;
+      padding: 20px 17px;
+      box-shadow: 0 5px 20px rgba(0,0,0,.04);
+    }
+
+    .form-group {
+      margin-bottom: 22px;
+    }
+
+    .form-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 10px;
+    }
+
+    select {
+      width: 100%;
+      min-height: 54px;
+      padding: 12px;
+      border: 1px solid #dce5df;
+      border-radius: 11px;
+      background: white;
+      color: #344a3c;
+      font-size: 16px;
+      outline: none;
+    }
+
+    select:focus {
+      border-color: #16834f;
+    }
+
+    .checkbox-area {
+      background: #f5f8f5;
+      border-radius: 12px;
+      padding: 17px;
+      margin-bottom: 22px;
+    }
+
+    .checkbox-label {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-height: 30px;
+      font-size: 14px;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    .checkbox-label input {
+      width: 22px;
+      height: 22px;
+      accent-color: #16834f;
+    }
+
+    .checkbox-area p {
+      color: #87958b;
+      font-size: 11px;
+      line-height: 1.6;
+      margin: 8px 0 0 34px;
+    }
+
+    #jumlahArea {
+      display: none;
+      margin-bottom: 22px;
+    }
+
+    .total-box {
+      background: #edf7f0;
+      border: 1px solid #d6ebdc;
+      padding: 17px;
+      border-radius: 12px;
+      margin-bottom: 23px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .total-box span {
+      font-size: 12px;
+      color: #4f6c59;
+    }
+
+    .total-box strong {
+      color: #16834f;
+      font-size: 23px;
+    }
+
+    .button-group {
+      display: flex;
+      gap: 10px;
+    }
+
+    .btn {
+      flex: 1;
+      min-height: 54px;
+      border: none;
+      border-radius: 11px;
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+    }
+
+    .btn-save {
+      background: #16834f;
+      color: white;
+    }
+
+    .btn-save:disabled {
+      opacity: .6;
+      cursor: wait;
+    }
+
+    .btn-cancel {
+      background: #edf0ed;
+      color: #58665d;
+    }
+
+    .note {
+      text-align: center;
+      font-size: 11px;
+      color: #99a49c;
+      margin-top: 22px;
+      line-height: 1.7;
+    }
+
+    /* NOTIFIKASI */
+
+    .alert {
+      display: none;
+      padding: 14px;
+      border-radius: 10px;
+      font-size: 12px;
+      margin-bottom: 18px;
+      line-height: 1.7;
+    }
+
+    .alert.error {
+      display: block;
+      background: #fff0f0;
+      color: #b52b2b;
+    }
+
+    .alert.success {
+      display: block;
+      background: #eaf7ee;
+      color: #176d3e;
+    }
+
+    /* HALAMAN BERHASIL */
+
+    #successPage {
+      display: none;
+      min-height: 100vh;
+      min-height: 100dvh;
+      padding:
+        max(30px, env(safe-area-inset-top))
+        22px
+        max(30px, env(safe-area-inset-bottom));
+      text-align: center;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+
+    .success-icon {
+      width: 85px;
+      height: 85px;
+      background: #e7f7eb;
+      color: #16834f;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 42px;
+      margin-bottom: 25px;
+    }
+
+    #successPage h2 {
+      font-size: 23px;
+      color: #16834f;
+      margin-bottom: 10px;
+    }
+
+    #successPage p {
+      color: #75847a;
+      font-size: 13px;
+      line-height: 1.8;
+    }
+
+    .success-detail {
+      width: 100%;
+      margin: 25px 0;
+      padding: 20px;
+      border-radius: 12px;
+      background: #f2f7f3;
+      text-align: left;
+      font-size: 13px;
+      line-height: 2;
+      overflow-wrap: anywhere;
+    }
+
+    .success-detail strong {
+      color: #16834f;
+    }
+
+    /* TAMPILAN DESKTOP: TETAP SEPERTI HP */
+
+    @media (min-width: 600px) {
+      body {
+        padding: 20px 0;
+      }
+
+      .container {
+        min-height: calc(100dvh - 40px);
+        border-radius: 18px;
+        box-shadow: 0 5px 35px rgba(0,0,0,.10);
+      }
+
+      .hero,
+      #bookingPage,
+      #successPage {
+        min-height: calc(100dvh - 40px);
+      }
+    }
+
+  </style>
+</head>
+
+<body>
+
+<div class="container">
+
+  <!-- HALAMAN UTAMA -->
+
+  <section id="homePage" class="hero">
+
+    <div class="hero-content">
+
+      <button class="btn-main" onclick="bukaBooking()">
+        🎫 BOOKING SEKARANG
+      </button>
+
+    </div>
+
+  </section>
+
+
+  <!-- HALAMAN BOOKING -->
+
+  <section id="bookingPage">
+
+    <div class="header-booking">
+
+      <button class="back-link" onclick="kembaliHome()">
+        ← Kembali ke Menu Utama
+      </button>
+
+      <h2>Form Booking</h2>
+
+      <p>Silakan lengkapi data pemesanan tempat duduk.</p>
+
+    </div>
+
+    <div class="form-card">
+
+      <div id="alertBox" class="alert"></div>
+
+      <div class="form-group">
+
+        <label for="namaGuru">
+          Nama Guru / Karyawan
+        </label>
+
+        <select id="namaGuru">
+          <option value="">Memuat data nama...</option>
+        </select>
+
+      </div>
+
+      <div class="checkbox-area">
+
+        <label class="checkbox-label">
+
+          <input
+            type="checkbox"
+            id="tambahPeserta"
+            onchange="togglePeserta()"
+          >
+
+          Tambah peserta?
+
+        </label>
+
+        <p>
+          Centang jika ingin menambahkan peserta
+          selain diri sendiri.
+        </p>
+
+      </div>
+
+      <div id="jumlahArea" class="form-group">
+
+        <label for="jumlahPeserta">
+          Jumlah Peserta Tambahan
+        </label>
+
+        <select id="jumlahPeserta" onchange="hitungKursi()">
+
+          <option value="1">1 Peserta</option>
+          <option value="2">2 Peserta</option>
+          <option value="3">3 Peserta</option>
+          <option value="4">4 Peserta</option>
+          <option value="5">5 Peserta</option>
+
+        </select>
+
+      </div>
+
+      <div class="total-box">
+
+        <span>Total tempat duduk</span>
+
+        <strong id="totalKursi">1 Kursi</strong>
+
+      </div>
+
+      <div class="button-group">
+
+        <button
+          class="btn btn-save"
+          id="btnSimpan"
+          onclick="simpanData()"
+        >
+          SIMPAN
+        </button>
+
+        <button
+          class="btn btn-cancel"
+          onclick="batalBooking()"
+        >
+          BATAL
+        </button>
+
+      </div>
+
+    </div>
+
+    <p class="note">
+      Pastikan data booking sudah benar sebelum disimpan.
+    </p>
+
+  </section>
+
+
+  <!-- HALAMAN BERHASIL -->
+
+  <section id="successPage">
+
+    <div class="success-icon">✓</div>
+
+    <h2>Booking Berhasil!</h2>
+
+    <p>
+      Terima kasih. Data booking Anda telah
+      berhasil disimpan.
+    </p>
+
+    <div class="success-detail" id="successDetail"></div>
+
+    <button
+      class="btn btn-save"
+      style="width:100%"
+      onclick="kembaliHome()"
+    >
+      KEMBALI KE MENU UTAMA
+    </button>
+
+  </section>
+
+</div>
+
+
+<script>
+
+  let dataGuru = [];
+  let sedangMenyimpan = false;
+
+
+  function bukaBooking() {
+
+    document.getElementById('homePage').style.display = 'none';
+    document.getElementById('bookingPage').style.display = 'block';
+    document.getElementById('successPage').style.display = 'none';
+
+    bersihkanForm();
+
+    if (dataGuru.length === 0) {
+      muatDataGuru();
+    }
+
+  }
+
+
+  function kembaliHome() {
+
+    document.getElementById('homePage').style.display = 'flex';
+    document.getElementById('bookingPage').style.display = 'none';
+    document.getElementById('successPage').style.display = 'none';
+
+    bersihkanForm();
+
+  }
+
+
+  function muatDataGuru() {
+
+    const select = document.getElementById('namaGuru');
+
+    select.innerHTML =
+      '<option value="">Memuat data...</option>';
+
+    google.script.run
+
+      .withSuccessHandler(function(data) {
+
+        dataGuru = data || [];
+
+        select.innerHTML =
+          '<option value="">-- Pilih Nama Anda --</option>';
+
+        dataGuru.forEach(function(guru) {
+
+          const option = document.createElement('option');
+
+          option.value = guru.id;
+          option.textContent = guru.nama;
+
+          select.appendChild(option);
+
+        });
+
+        if (dataGuru.length === 0) {
+          tampilkanAlert(
+            'Data guru belum tersedia.',
+            'error'
+          );
+        }
+
+      })
+
+      .withFailureHandler(function(error) {
+
+        select.innerHTML =
+          '<option value="">Gagal memuat data</option>';
+
+        tampilkanAlert(
+          error.message || 'Gagal mengambil data guru.',
+          'error'
+        );
+
+      })
+
+      .getDataGuru();
+
+  }
+
+
+  function togglePeserta() {
+
+    const checked =
+      document.getElementById('tambahPeserta').checked;
+
+    document.getElementById('jumlahArea').style.display =
+      checked ? 'block' : 'none';
+
+    hitungKursi();
+
+  }
+
+
+  function hitungKursi() {
+
+    const tambah =
+      document.getElementById('tambahPeserta').checked;
+
+    const jumlah = tambah
+      ? Number(document.getElementById('jumlahPeserta').value)
+      : 0;
+
+    const total = 1 + jumlah;
+
+    document.getElementById('totalKursi').textContent =
+      total + ' Kursi';
+
+  }
+
+
+  function tampilkanAlert(pesan, jenis) {
+
+    const box = document.getElementById('alertBox');
+
+    box.className = 'alert ' + jenis;
+    box.textContent = pesan;
+
+  }
+
+
+  function bersihkanForm() {
+
+    document.getElementById('namaGuru').value = '';
+
+    document.getElementById('tambahPeserta').checked = false;
+
+    document.getElementById('jumlahPeserta').value = '1';
+
+    document.getElementById('jumlahArea').style.display = 'none';
+
+    document.getElementById('totalKursi').textContent = '1 Kursi';
+
+    document.getElementById('alertBox').className = 'alert';
+    document.getElementById('alertBox').textContent = '';
+
+    document.getElementById('btnSimpan').disabled = false;
+    document.getElementById('btnSimpan').textContent = 'SIMPAN';
+
+    sedangMenyimpan = false;
+
+  }
+
+
+  function batalBooking() {
+
+    bersihkanForm();
+
+    tampilkanAlert(
+      'Formulir berhasil dikosongkan.',
+      'success'
+    );
+
+  }
+
+
+  function simpanData() {
+
+    if (sedangMenyimpan) return;
+
+    const idGuru =
+      document.getElementById('namaGuru').value;
+
+    const tambah =
+      document.getElementById('tambahPeserta').checked;
+
+    const jumlah = tambah
+      ? Number(document.getElementById('jumlahPeserta').value)
+      : 0;
+
+    if (!idGuru) {
+
+      tampilkanAlert(
+        'Silakan pilih nama guru/karyawan terlebih dahulu.',
+        'error'
+      );
+
+      return;
+
+    }
+
+    if (!Number.isInteger(jumlah) || jumlah < 0 || jumlah > 5) {
+
+      tampilkanAlert(
+        'Jumlah peserta tidak valid.',
+        'error'
+      );
+
+      return;
+
+    }
+
+    sedangMenyimpan = true;
+
+    const tombol = document.getElementById('btnSimpan');
+
+    tombol.disabled = true;
+    tombol.textContent = 'MENYIMPAN...';
+
+    google.script.run
+
+      .withSuccessHandler(function(result) {
+
+        sedangMenyimpan = false;
+
+        tampilkanSukses(result);
+
+      })
+
+      .withFailureHandler(function(error) {
+
+        sedangMenyimpan = false;
+
+        tombol.disabled = false;
+        tombol.textContent = 'SIMPAN';
+
+        tampilkanAlert(
+          error.message || 'Terjadi kesalahan.',
+          'error'
+        );
+
+      })
+
+      .simpanBooking(idGuru, jumlah);
+
+  }
+
+
+  function tampilkanSukses(data) {
+
+    document.getElementById('homePage').style.display = 'none';
+
+    document.getElementById('bookingPage').style.display = 'none';
+
+    document.getElementById('successPage').style.display = 'flex';
+
+    const detail = document.getElementById('successDetail');
+
+    detail.replaceChildren();
+
+    const informasi = [
+      ['ID Booking', data.idBooking],
+      ['Nama', data.nama],
+      ['Peserta Tambahan', data.tambahan + ' orang'],
+      ['Total Kursi', data.totalKursi + ' kursi']
+    ];
+
+    informasi.forEach(function(item) {
+
+      const baris = document.createElement('div');
+      const label = document.createElement('span');
+      const nilai = document.createElement('strong');
+
+      label.textContent = item[0] + ': ';
+      nilai.textContent = item[1];
+
+      baris.append(label, nilai);
+      detail.appendChild(baris);
+
+    });
+
+  }
+
+</script>
+
+</body>
+</html>
